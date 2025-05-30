@@ -1,0 +1,28 @@
+.nav1 {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    height: 80px;
+    background: var(--white1);
+    filter: drop-shadow(0 0 3px var(--grey1));
+    padding: 0 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 20;
+}
+.nav1-links {
+    display: flex;
+    gap: 10px;
+    height: 100%;
+}
+.nav1-link {
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.nav1-link.active {
+    color: var(--blue1);
+    border-bottom: 1px solid var(--blue1);
+}
