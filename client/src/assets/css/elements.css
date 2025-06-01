@@ -1,3 +1,7 @@
+:root {
+    --blog-box1-width: 750px;
+}
+
 .content1 {
     padding: 50px;
 }
@@ -6,13 +10,10 @@
 
 /* BLOG BOX */
 .blog-box1 {
-    width: 750px;
-    border-radius: 10px;
-    /* background: var(--white1); */
+    width: var(--blog-box1-width);
     padding: 20px 0;
-    filter: drop-shadow(0 0 3px var(--grey1));
 }
-.blog-box-pfp {
+.blog-box-pfp, .blog-comment-pfp {
     width: 50px;
     height: 50px;
     background: var(--black1);
@@ -23,7 +24,7 @@
     color: var(--white1);
     border-radius: 100%;
 }
-.blog-box-header {
+.blog-box-header, .blog-comment-header {
     display: flex; 
     gap: 10px;
     /* padding: 0 20px; */
@@ -42,7 +43,51 @@
     aspect-ratio: 2/1;
     border-radius: 10px;
     background-color: var(--grey1);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.blog-box-body-image img {
+    position: absolute;
+    width: 100%;
 }
 .blog-box-footer {
     /* padding: 0 20px; */
+}
+.blogs-categories-cont {
+    width: var(--blog-box1-width);
+}
+
+.blog-comment-box {
+    max-width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--white1);
+    filter: drop-shadow(0 0 3px var(--grey1));
+}
+.blog-comment-pfp {
+    width: 40px;
+    height: 40px;
+}
+
+/* CREATE BLOG */
+.create-blog-cont {
+    width: var(--blog-box1-width);
+    border-radius: 10px;
+    background: var(--white1);
+    filter: drop-shadow(0 0 3px var(--grey1));
+    padding: 20px;
+}
+.create-blog-btn1 {
+    width: calc(100% - 60px);
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid var(--grey1);
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    user-select: none;
 }

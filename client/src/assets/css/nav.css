@@ -21,8 +21,10 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    text-decoration: none;
+    color: black;
 }
 .nav1-link.active {
     color: var(--blue1);
-    border-bottom: 1px solid var(--blue1);
+    border-bottom: 2px solid var(--blue1);
 }

@@ -1,10 +1,13 @@
+import { useOutletContext } from "react-router-dom";
+import { outletContextTypes } from "../userDefault";
+import { BlogCategoryStructure, BlogStructure } from "../../../types/blogStructures";
 import { useEffect, useState } from "react";
-import BlogBox from "../../components/blog/blogBox";
-import { BlogStructure, BlogCategoryStructure } from "../../types/blogStructures";
-import { fetchAllBlogs, fetchAllBlogCategories } from "../../services/blogServices";
+import { fetchAllBlogCategories, fetchAllBlogs } from "../../../services/blogServices";
 import { Button, Spin } from "antd";
+import BlogBox from "../../../components/blog/blogBox";
 
-export default function GuestIndex() {
+export default function UserDraftsIndex() {
+    const { setUserActivePage } = useOutletContext<outletContextTypes>();
     const [blogs, setBlogs] = useState<BlogStructure[] | null>(null);
     const [categories, setCategories] = useState<BlogCategoryStructure[] | null>(null);
 
@@ -16,12 +19,13 @@ export default function GuestIndex() {
      * Onmount
      */
     useEffect(() => {
+        setUserActivePage("Drafts");
         const getAll = async() => {
             const [blogsData, categoriesData] = await Promise.all([
                 fetchAllBlogs(),
                 fetchAllBlogCategories()
             ]);
-            setBlogs(blogsData.filter((blog: BlogStructure) => blog.status === "Published"));
+            setBlogs(blogsData.filter((blog: BlogStructure) => blog.status === "Draft"));
             setCategories(categoriesData);
         }
 
@@ -60,7 +64,7 @@ export default function GuestIndex() {
                         </div>
 
                         {blogs.length < 1 && (
-                            <h4>There are no available blogs yet.</h4>
+                            <h4>There are no available draft blogs yet.</h4>
                         )}
 
                         {blogs.filter(blog => selectedCategory ? (blog.category.id === selectedCategory.id) : true).map((blog, index) => (

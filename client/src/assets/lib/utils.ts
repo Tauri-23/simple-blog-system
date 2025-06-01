@@ -60,7 +60,7 @@ export const formatTime = (time: string): string => {
     return realDateTime.toLocaleTimeString('en-PH', timeOptions);
 };
 
-export const getTimeAgo = (timestamp: string | number | Date): string => {
+export const getTimeAgo = (timestamp: string | number | Date | any): string => {
     const date = new Date(timestamp);
     const now = new Date();
     const timeDifference = now.getTime() - date.getTime(); // milliseconds

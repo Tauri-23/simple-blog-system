@@ -1,4 +1,4 @@
-export interface UserStructure {
+export default interface UserStructure {
     id: string;
     fname: string;
     mname: string | null;

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\admins;
 use App\Models\users;
 use Hash;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class AuthController extends Controller
             ]);
         }
 
-        users::Create([
+        $user = users::Create([
             "fname" => $signupIn->fname,
             "mname" => $signupIn->mname,
             "lname" => $signupIn->lname,
@@ -40,9 +41,21 @@ class AuthController extends Controller
             "password" => bcrypt($signupIn->password),
         ]);
 
+        $token = $user->createToken('main')->plainTextToken;
+
         return response()->json([
-            "status" => 200,
-            "message" => "Success"
+            'status' => 200,
+            'message' => 'Success',
+            'user' => [
+                "id" => $user->id,
+                "fname" => $user->fname,
+                "mname" => $user->mname,
+                "lname" => $user->lname,
+                "username" => $user->username,
+                "email" => $user->email,
+            ],
+            'token' => $token,
+            'userType' => "user"
         ]);
     }
 
@@ -52,6 +65,7 @@ class AuthController extends Controller
     {
         $loginIn = json_decode($request->input("loginIn"));
         $user = users::where("username", $loginIn->username)->first();
+        $admin = admins::where("username", $loginIn->username)->first();
 
         if($user && Hash::check($loginIn->password, $user->password))
         {
@@ -60,11 +74,34 @@ class AuthController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Success',
-                'user' => $user,
+                'user' => [
+                    "id" => $user->id,
+                    "fname" => $user->fname,
+                    "mname" => $user->mname,
+                    "lname" => $user->lname,
+                    "username" => $user->username,
+                    "email" => $user->email,
+                ],
                 'token' => $token,
-                'user_type' => "user"
+                'userType' => "user"
             ]);
         }
+        // else if($admin && Hash::check($loginIn->password, $admin->password))
+        // {
+        //     $token = $admin->createToken('main')->plainTextToken;
+
+        //     return response()->json([
+        //         'status' => 200,
+        //         'message' => 'Success',
+        //         'user' => [
+        //             "id" => $admin->id,
+        //             "username" => $admin->username,
+        //             "email" => $admin->email,
+        //         ],
+        //         'token' => $token,
+        //         'userType' => "admin"
+        //     ]);
+        // }
         else
         {
             return response()->json([
@@ -114,7 +151,6 @@ class AuthController extends Controller
                 "lname" => $user->lname,
                 "username" => $user->username,
                 "email" => $user->email,
-                "user_type" => $userType,
             ],
             "userType" => $userType
         ]);

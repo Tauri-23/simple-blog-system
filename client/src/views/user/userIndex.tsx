@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
 import BlogBox from "../../components/blog/blogBox";
-import { BlogStructure, BlogCategoryStructure } from "../../types/blogStructures";
-import { fetchAllBlogs, fetchAllBlogCategories } from "../../services/blogServices";
+import { fetchAllBlogCategories, fetchAllBlogs } from "../../services/blogServices";
+import { BlogCategoryStructure, BlogStructure } from "../../types/blogStructures";
 import { Button, Spin } from "antd";
+import { useGeneralContext } from "../../context/GeneralContext";
+import { useOutletContext } from "react-router-dom";
+import { BiPlus } from "react-icons/bi";
+import { outletContextTypes } from "./userDefault";
 
-export default function GuestIndex() {
+export default function UserIndex() {
+    const { showModal } = useGeneralContext();
+    const { setUserActivePage } = useOutletContext<outletContextTypes>();
     const [blogs, setBlogs] = useState<BlogStructure[] | null>(null);
     const [categories, setCategories] = useState<BlogCategoryStructure[] | null>(null);
 
@@ -16,6 +22,7 @@ export default function GuestIndex() {
      * Onmount
      */
     useEffect(() => {
+        setUserActivePage("Home");
         const getAll = async() => {
             const [blogsData, categoriesData] = await Promise.all([
                 fetchAllBlogs(),
@@ -27,6 +34,24 @@ export default function GuestIndex() {
 
         getAll();
     }, []);
+
+
+
+    /**
+     * handlers
+     */
+    const handleAddPostClick = () => {
+        showModal("AddBlogModal", {
+            categories,
+            setBlogs
+        });
+    }
+
+    const handleAddCategory = () => {
+        showModal("AddCategoryModal", {
+            setCategories
+        });
+    }
 
 
 
@@ -57,6 +82,18 @@ export default function GuestIndex() {
                                     {category.category}
                                 </Button>
                             ))}
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                onClick={handleAddCategory}
+                                icon={<BiPlus size={20}/>}>
+                                    Add Category
+                            </Button>
+                        </div>
+
+                        <div className="create-blog-cont d-flex align-items-center gap3">
+                            <div className="blog-box-pfp">A</div>
+                            <div className="create-blog-btn1" onClick={handleAddPostClick}>Create a blog</div>
                         </div>
 
                         {blogs.length < 1 && (
