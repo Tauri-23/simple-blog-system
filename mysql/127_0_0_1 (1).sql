@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2025 at 12:36 PM
+-- Generation Time: Jun 04, 2025 at 01:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -85,7 +85,8 @@ CREATE TABLE `blog_categories` (
 INSERT INTO `blog_categories` (`id`, `category`, `created_at`, `updated_at`) VALUES
 (1, 'General', '2025-06-01 04:07:41', '2025-06-01 04:07:41'),
 (2, 'Gaming', '2025-06-01 04:07:41', '2025-06-01 04:07:41'),
-(3, 'Education', '2025-06-01 04:07:41', '2025-06-01 04:07:41');
+(3, 'Education', '2025-06-01 04:07:41', '2025-06-01 04:07:41'),
+(5, 'Careers', '2025-06-04 03:12:44', '2025-06-04 03:12:44');
 
 -- --------------------------------------------------------
 
@@ -102,6 +103,13 @@ CREATE TABLE `blog_comments` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `blog_comments`
+--
+
+INSERT INTO `blog_comments` (`id`, `comment`, `blog_id`, `admin_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(3, 'Sana all', NULL, NULL, NULL, '2025-06-04 03:14:40', '2025-06-04 03:14:40');
 
 -- --------------------------------------------------------
 
@@ -244,7 +252,8 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(11, 'App\\Models\\users', 'MVN8C4VlX8CNxtrikNMQ', 'main', 'ae1196b0148fb8722a48e692fb35d2bd8366467ab33cb38ced08d9c4b513fe74', '[\"*\"]', '2025-06-01 02:27:48', NULL, '2025-06-01 02:27:46', '2025-06-01 02:27:48');
+(11, 'App\\Models\\users', 'MVN8C4VlX8CNxtrikNMQ', 'main', 'ae1196b0148fb8722a48e692fb35d2bd8366467ab33cb38ced08d9c4b513fe74', '[\"*\"]', '2025-06-01 02:27:48', NULL, '2025-06-01 02:27:46', '2025-06-01 02:27:48'),
+(14, 'App\\Models\\users', 'MVN8C4VlX8CNxtrikNMQ', 'main', 'e1f0eeb4f4dee9d6d767a66b4fd15be06257568a2344e92528ce03429366cc79', '[\"*\"]', '2025-06-04 03:14:51', NULL, '2025-06-04 03:14:49', '2025-06-04 03:14:51');
 
 -- --------------------------------------------------------
 
@@ -402,13 +411,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `blog_categories`
 --
 ALTER TABLE `blog_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `blog_comments`
 --
 ALTER TABLE `blog_comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `blog_likes`
@@ -438,7 +447,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
